@@ -1,13 +1,13 @@
-@import 'tailwindcss';
+ @import 'tailwindcss';
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light #E8B7B7;
+  color: rgba(255, 255, 255, 1);
+  background-color: #E8B7B7;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,11 +17,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #ffffff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #712b2b;
 }
 
 body {
@@ -30,11 +30,15 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url(../src/assets/back4.jpg);
+  background-repeat: repeat;
+  background-size: 100px 100px;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2em;
+  line-height: 0.4;
+  /* color: #8C063A; */
 }
 
 button {
@@ -44,12 +48,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #CD457A;
   cursor: pointer;
   transition: border-color 0.25s;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #bb5678;
 }
 button:focus,
 button:focus-visible {
@@ -61,6 +66,7 @@ button:focus-visible {
 }
 
 #app {
+  /* height: 100vh; */
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -69,13 +75,51 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: #bb5678;
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #bb5678;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #fe99bb;
   }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  max-width: 500px;
+  margin: 0 auto; 
+  padding: 80px; 
+  background-color: rgba(0, 0, 0,0.5);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(9px);
+  border-radius: 15px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  font-size: 17px;
+}
+
+.title-form {
+  font-family: "Press Start 2P", system-ui;
+  font-size: 25px;
+  font-weight: 400;
+  margin-bottom: 60px;
+  font-style: normal;
+}
+
+.input-form {
+  padding: 2px 5px; 
+  width: 100%; 
+  border: none; 
+  border-bottom: 1.5px solid white; 
+  outline: none;
+  color: white;
+}
+
+.input-form::placeholder {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
