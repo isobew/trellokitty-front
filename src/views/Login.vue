@@ -1,11 +1,21 @@
 <template>
-  <div class="container mx-auto">
-    <h1 class="text-2xl">Login</h1>
+  <div class="container mx-auto form-container">
+    <h1 class="mb-5 title-form">Bem vindo!</h1>
     <form @submit.prevent="login">
-      <input v-model="username" placeholder="Username" />
-      <input v-model="password" type="password" placeholder="Password" />
-      <button type="submit">Login</button>
+      <input v-model="username" placeholder="Username"
+      class="input-form my-5"
+      required/>
+      <input v-model="password" type="password" placeholder="Password" 
+      class="input-form my-2"
+      required/>
+      <button type="submit"
+      class="w-full min-h-[2.5em] min-w-[100px] text-dark font-bold text-lg rounded-lg cursor-pointer mt-5">
+      Login</button>
     </form>
+    <p class="mt-5 pt-5 text-sm">
+      Ainda não tem conta?
+      <a href="/register" class="font-bold">Cadastre-se</a>
+    </p>
   </div>
 </template>
 
