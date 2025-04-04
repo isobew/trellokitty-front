@@ -46,7 +46,6 @@ export default {
       } catch (error: any) {
         const msg = error.response?.data?.message || 'Erro no login. Tente novamente.'
         errorMessage.value = error.response?.data?.message || "Erro no login. Tente novamente.";
-        // toast.error(error.response?.data?.message || 'Erro no login!')
         $toast.error(msg)
       }
     };
