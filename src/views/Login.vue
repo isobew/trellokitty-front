@@ -23,7 +23,6 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
-// import { toast } from 'vue3-toastify'
 import { useToast } from 'vue-toast-notification'
 
 export default {
@@ -56,10 +55,3 @@ export default {
   },
 };
 </script>
-
-try {
-  // sua lógica de login
-  toast.success('Login realizado com sucesso!')
-} catch (error: any) {
-  toast.error(error.response?.data?.message || 'Erro no login!')
-}
