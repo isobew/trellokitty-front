@@ -23,6 +23,8 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+// import { toast } from 'vue3-toastify'
+import { useToast } from 'vue-toast-notification'
 
 export default {
   setup() {
@@ -30,6 +32,7 @@ export default {
     const password = ref("");
     const errorMessage = ref("");
     const router = useRouter();
+    const $toast = useToast();
 
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -42,7 +45,10 @@ export default {
         localStorage.setItem("token", response.data.token);
         router.push("/board"); 
       } catch (error: any) {
+        const msg = error.response?.data?.message || 'Erro no login. Tente novamente.'
         errorMessage.value = error.response?.data?.message || "Erro no login. Tente novamente.";
+        // toast.error(error.response?.data?.message || 'Erro no login!')
+        $toast.error(msg)
       }
     };
 
@@ -50,3 +56,10 @@ export default {
   },
 };
 </script>
+
+try {
+  // sua lógica de login
+  toast.success('Login realizado com sucesso!')
+} catch (error: any) {
+  toast.error(error.response?.data?.message || 'Erro no login!')
+}
