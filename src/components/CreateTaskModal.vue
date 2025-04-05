@@ -41,8 +41,8 @@ const createTask = async () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white p-4 rounded w-full max-w-md">
+  <div class="fixed inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
+    <div class="bg-gray-500 p-4 rounded w-full max-w-md">
       <h2 class="text-xl font-bold mb-4">Nova Tarefa</h2>
       <input v-model="title" placeholder="Título" class="w-full border p-2 mb-2 rounded" />
       <textarea v-model="description" placeholder="Descrição" class="w-full border p-2 mb-2 rounded"></textarea>

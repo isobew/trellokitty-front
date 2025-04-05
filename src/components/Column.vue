@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
 import TaskCard from './TaskCard.vue';
 
 interface Task {
@@ -24,7 +23,7 @@ const handleDrop = (event: DragEvent) => {
 </script>
 
 <template>
-  <div class="bg-gray-100 p-4 rounded shadow" @drop.prevent="handleDrop" @dragover.prevent>
+  <div class="column-container p-4 rounded h-100 w-70" @drop.prevent="handleDrop" @dragover.prevent>
     <h2 class="font-semibold mb-2">{{ title }}</h2>
     <div class="space-y-2">
       <TaskCard

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
 
 interface Task {
   id: string;
@@ -21,12 +20,13 @@ const onDragStart = (event: DragEvent) => {
   <div
     draggable
     @dragstart="onDragStart"
-    class="bg-white p-2 rounded shadow border flex justify-between items-start"
+    class="bg-[#723046] text-white p-2 rounded shadow flex justify-between cursor-grab items-start" 
+    style="user-select: none;"
   >
     <div>
       <h3 class="font-bold">{{ task.title }}</h3>
-      <p class="text-sm text-gray-600">{{ task.description }}</p>
+      <p class="text-sm text-black">{{ task.description }}</p>
     </div>
-    <button @click="emit('deleteTask')" class="text-red-500 text-sm">✕</button>
+    <button @click.stop="emit('deleteTask')" class="text-white text-sm">✕</button>
   </div>
 </template>

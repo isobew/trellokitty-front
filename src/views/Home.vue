@@ -92,14 +92,14 @@ onMounted(fetchTasks);
 <template>
   <div class="p-4">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Board</h1>
+      <h1 class="text-2xl font-bold">Quadro de tarefas</h1>
       <div class="flex gap-4">
-        <button @click="showModal = true" class="bg-green-500 text-white px-4 py-2 rounded">+ Tarefa</button>
-        <button @click="logout" class="bg-red-500 text-white px-4 py-2 rounded">Sair</button>
+        <button @click="showModal = true" class="text-white px-4 py-2 rounded">+ Tarefa</button>
+        <button @click="logout" class="text-white px-4 py-2 rounded">Sair</button>
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-10">
       <Column title="Pendente" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
       <Column title="Em andamento" status="em andamento" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
       <Column title="Concluída" status="concluída" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
