@@ -11,15 +11,10 @@ const props = defineProps<{ task: Task }>();
 
 const emit = defineEmits(['deleteTask']);
 
-const onDragStart = (event: DragEvent) => {
-  event.dataTransfer?.setData('text', props.task.id);
-};
 </script>
 
 <template>
   <div
-    draggable
-    @dragstart="onDragStart"
     class="bg-[#723046] text-white p-2 rounded shadow flex justify-between cursor-grab items-start" 
     style="user-select: none;"
   >

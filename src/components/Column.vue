@@ -1,37 +1,51 @@
 <script setup lang="ts">
-import TaskCard from './TaskCard.vue';
+import { computed } from 'vue'
+import draggable from 'vuedraggable'
+import TaskCard from './TaskCard.vue'
 
 interface Task {
-  id: string;
-  title: string;
-  description: string;
-  status: string;
+  id: string
+  title: string
+  description: string
+  status: string
 }
 
 const props = defineProps<{
-  title: string;
-  status: string;
-  tasks: Task[];
-}>();
+  title: string
+  status: string
+  tasks: Task[]
+}>()
 
-const emit = defineEmits(['taskMoved', 'deleteTask']);
+const emit = defineEmits(['taskMoved', 'deleteTask'])
 
-const handleDrop = (event: DragEvent) => {
-  const id = event.dataTransfer?.getData('text');
-  if (id) emit('taskMoved', { id, status: props.status });
-};
+const filteredTasks = computed({
+  get() {
+    return props.tasks.filter((t) => t.status === props.status)
+  },
+  set(newTasks) {
+    newTasks.forEach((task: Task) => {
+      if (task.status !== props.status) {
+        task.status = props.status
+        emit('taskMoved', { id: task.id, status: props.status })
+      }
+    })
+  }
+})
 </script>
 
 <template>
-  <div class="column-container p-4 rounded h-100 w-70" @drop.prevent="handleDrop" @dragover.prevent>
+  <div class="column-container p-4 rounded h-100 w-70 bg-gray-100">
     <h2 class="font-semibold mb-2">{{ title }}</h2>
-    <div class="space-y-2">
-      <TaskCard
-        v-for="task in tasks.filter(t => t.status === status)"
-        :key="task.id"
-        :task="task"
-        @deleteTask="emit('deleteTask', task.id)"
-      />
-    </div>
+
+    <draggable
+      v-model="filteredTasks"
+      group="tasks"
+      item-key="id"
+      class="space-y-2 min-h-[100px]"
+    >
+      <template #item="{ element }">
+        <TaskCard :task="element" @deleteTask="emit('deleteTask', element.id)" />
+      </template>
+    </draggable>
   </div>
 </template>
