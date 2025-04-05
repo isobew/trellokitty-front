@@ -57,7 +57,7 @@ Para isso, você pode acessar o TrelloKitty, fazer login e usar o board.
 
 Você pode criar tarefas como “Implementar login” ou “Corrigir bug do botão”, e também pode editá-las, excluí-las e ver detalhes.
 
-Conforme as tarefas progridem, podem ser movidas entre as colunas Pendente, Em andamento e Concluída, isso pode ser visualizado em tempo real com Websockets.
+Conforme as tarefas progridem, podem ser movidas entre as colunas Pendente, Em andamento e Concluída.
 
 No painel de métricas, você pode visualizar:
 
@@ -78,7 +78,7 @@ No painel de métricas, você pode visualizar:
 ![Image](https://github.com/user-attachments/assets/5bf847ff-07cc-48fa-92a7-4bf51e663c10)
 
 ### Tela de Quadro de Tarefas
-![Image](https://github.com/user-attachments/assets/8a5dffca-0270-44e3-b463-5f52e3517625)
+![Image](https://github.com/user-attachments/assets/e6c65211-b5b1-4435-bd64-d72ebdb8bf81)
 
 ### Tela de Relatórios
-![Image](https://github.com/user-attachments/assets/7d23b692-195c-48bb-a821-a9f60cd613a7)
+![Image](https://github.com/user-attachments/assets/284ce831-3cab-4539-90de-b7033ad06659)

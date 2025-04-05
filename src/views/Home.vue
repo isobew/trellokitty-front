@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 import Column from '../components/Column.vue';
 import TaskFormModal from '../components/TaskFormModal.vue';
 import { useToast } from 'vue-toast-notification'
@@ -15,13 +14,13 @@ interface Task {
   status: string;
   userId: string;
   createdAt: string;
+  category: string;
   User: {
     id: string;
     username: string;
   };
 }
 
-const router = useRouter();
 const tasks = ref<Task[]>([]);
 const showModal = ref(false);
 const $toast = useToast();

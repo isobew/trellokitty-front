@@ -6,6 +6,7 @@
     status: string;
     userId: string;
     createdAt: string;
+    category: string;
     User: {
       id: string;
       username: string;
@@ -14,6 +15,14 @@
 
   defineProps<{ task: Task | null }>()
   defineEmits(['cancel'])
+
+  const categoryLabels: Record<string, string> = {
+    feature: 'Funcionalidade',
+    bug: 'Bug',
+    adjust: 'Ajuste',
+    idea: 'Ideia'
+  }
+
 </script>
 
 <template>
@@ -22,6 +31,7 @@
       <h2 class="text-lg font-bold mb-2 text-start">{{ task?.title }}</h2>
       <p class="mb-4 text-start">{{ task?.description }}</p>
       <p class="text-sm mb-4 text-start">Responsável: {{ task?.User?.username }}</p>
+      <p class="text-sm mb-4 text-start">Categoria: {{ categoryLabels[task?.category || ''] || task?.category }}</p>
       <div class="flex justify-end gap-2">
         <button @click="$emit('cancel')" class="px-4 py-1 bg-gray-300 rounded">Fechar</button>
       </div>

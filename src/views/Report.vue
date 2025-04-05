@@ -13,6 +13,7 @@ interface Task {
   status: string;
   userId: string;
   createdAt: string;
+  category: string;
   User: {
     id: string;
     username: string;
@@ -85,7 +86,7 @@ const metrics = computed(() => {
       <h1 class="text-2xl font-bold sm:mb-5">Relatórios</h1>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5">
       <TaskMetrics :metrics="metrics" />
       <RecentTasks :tasks="tasks" @showInfo="openInfoModal"/>
     </div>

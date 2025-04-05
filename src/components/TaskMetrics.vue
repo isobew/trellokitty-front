@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="column-container p-4 rounded h-100 w-100">
+  <div class="column-container p-4 rounded h-full w-full">
     <table class="w-full text-white border-separate border-spacing-y-2">
       <thead>
         <tr class="text-left text-sm">

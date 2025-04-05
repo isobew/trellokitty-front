@@ -3,8 +3,8 @@
       <h2 class="text-xl font-semibold mb-4 text-white">Tarefas Recentes</h2>
   
       <!-- Filtros -->
-      <div class="flex gap-4 mb-4">
-        <select v-model="selectedUser" class="bg-[#8c4c5e] text-white px-3 py-1 rounded">
+      <div class="flex gap-4 mb-4 flex-wrap">
+        <select v-model="selectedUser" class="bg-[#8c4c5e] text-white px-3 py-1 rounded text-sm">
           <option value="">Todos os usuários</option>
           <option
             v-for="user in availableUsers"
@@ -15,11 +15,22 @@
           </option>
         </select>
   
-        <select v-model="selectedStatus" class="bg-[#8c4c5e] text-white px-3 py-1 rounded">
+        <select v-model="selectedStatus" class="bg-[#8c4c5e] text-white px-3 py-1 rounded text-sm">
           <option value="">Todos os status</option>
           <option value="pendente">Pendente</option>
           <option value="em andamento">Em andamento</option>
           <option value="concluída">Concluída</option>
+        </select>
+
+        <select v-model="selectedCategory" class="bg-[#8c4c5e] text-white px-3 py-1 rounded text-sm">
+            <option value="">Todas as categorias</option>
+            <option
+            v-for="cat in availableCategories"
+            :key="cat.value"
+            :value="cat.value"
+            >
+                {{ cat.label }}
+            </option>
         </select>
       </div>
   
@@ -59,6 +70,7 @@
     description: string;
     status: string;
     createdAt: string;
+    category: string;
     userId: string;
     User: {
       id: string;
@@ -71,6 +83,7 @@
   
   const selectedUser = ref('')
   const selectedStatus = ref('')
+  const selectedCategory = ref('')
   
   const availableUsers = computed(() => {
     const users = props.tasks.map(task => task.User.username)
@@ -82,14 +95,31 @@
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, 6)
   })
+
+  const categoryLabels: Record<string, string> = {
+    feature: 'Funcionalidade',
+    bug: 'Bug',
+    adjust: 'Ajuste',
+    idea: 'Ideia'
+  }
+
+  const availableCategories = computed(() => {
+  const categories = [...new Set(props.tasks.map(task => task.category))]
+    return categories.map(cat => ({
+        value: cat,
+        label: categoryLabels[cat] || cat
+    }))
+  })
   
   const filteredTasks = computed(() => {
     return recentTasks.value.filter(task => {
-      const matchUser = selectedUser.value ? task.User.username === selectedUser.value : true
-      const matchStatus = selectedStatus.value ? task.status === selectedStatus.value : true
-      return matchUser && matchStatus
+        const matchUser = selectedUser.value ? task.User.username === selectedUser.value : true
+        const matchStatus = selectedStatus.value ? task.status === selectedStatus.value : true
+        const matchCategory = selectedCategory.value ? task.category === selectedCategory.value : true
+        return matchUser && matchStatus && matchCategory
     })
   })
+
   
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate)
