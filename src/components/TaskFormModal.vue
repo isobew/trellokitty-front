@@ -141,12 +141,18 @@ const categoryOptions = [
       <textarea id="desc" v-model="description" placeholder="Descrição" class="w-full border p-2 mb-2 rounded"></textarea>
       <label for="user" class="text-sm font-semibold text-white mb-1 block">Usuário</label>
       <select
+        v-if="isEditing"
         id="user"
         v-model="userId"
         class="w-full border p-2 mb-2 rounded border-white text-white"
       >
         <option disabled value="">Selecione um usuário</option>
-        <option class="text-black" v-for="user in users" :key="user.id" :value="user.id">
+        <option
+          class="text-black"
+          v-for="user in users"
+          :key="user.id"
+          :value="user.id"
+        >
           {{ user.username }}
         </option>
       </select>
