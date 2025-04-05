@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr @click="emit('showInfo', task)" v-for="task in recentTasks" :key="task.id" class="bg-[#8c4c5e]/60 rounded text-white cursor-pointer">
+          <tr @click="emit('showInfo', task)" v-for="task in recentTasks" :key="task.id" class="bg-[#8c4c5e]/60 rounded text-white cursor-pointer text-left">
             <td class="px-2 py-1">{{ shortTitle(task) }}</td>
             <td class="px-2 py-1">@{{ task.User.username }}</td>
             <td class="px-2 py-1 capitalize">{{ task.status }}</td>

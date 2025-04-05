@@ -25,8 +25,8 @@ const shortDescription = computed(() => {
 })
 
 const shortTitle = computed(() => {
-  return props.task.title.length > 10
-    ? props.task.title.slice(0, 10) + '...'
+  return props.task.title.length > 15
+    ? props.task.title.slice(0, 15) + '...'
     : props.task.title
 })
 </script>
