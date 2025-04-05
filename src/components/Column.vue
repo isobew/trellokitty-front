@@ -41,7 +41,7 @@ const filteredTasks = computed({
 
 <template>
   <div class="column-container p-4 rounded h-100 w-70 overflow-y-auto">
-    <h2 class="font-semibold mb-2">{{ title }}</h2>
+    <h2 class="font-semibold mb-2 text-[#3c1824]">{{ title }}</h2>
     
     <draggable
       v-model="filteredTasks"
