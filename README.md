@@ -1,6 +1,6 @@
 # 🐱 TrelloKitty Front
 
-TrelloKitty é um gerenciador de tarefas estilo Trello, com suporte a drag and drop, visualização de métricas, filtros e muito mais. Este repositório contém a interface web do projeto, desenvolvida com **Vue 3 + TypeScript + Tailwind CSS + Vite**, integrando com a API RESTful do TrelloKitty Back.
+TrelloKitty é um gerenciador de tarefas estilo Trello, com suporte a drag and drop, visualização de métricas, filtros e outros. Este repositório contém a interface web do projeto, desenvolvida com **Vue 3 + TypeScript + Tailwind CSS + Vite**, integrando com a API RESTful do TrelloKitty Back.
 
 ## Funcionalidades
 
