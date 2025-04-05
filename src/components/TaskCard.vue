@@ -7,6 +7,7 @@ interface Task {
   description: string;
   status: string;
   userId: string;
+  createdAt: string;
   User: {
     id: string;
     username: string;
@@ -22,6 +23,12 @@ const shortDescription = computed(() => {
     ? props.task.description.slice(0, 20) + '...'
     : props.task.description
 })
+
+const shortTitle = computed(() => {
+  return props.task.title.length > 10
+    ? props.task.title.slice(0, 10) + '...'
+    : props.task.title
+})
 </script>
 
 <template>
@@ -31,7 +38,7 @@ const shortDescription = computed(() => {
     @click="emit('showInfo')"
   >
     <div class="flex flex-col items-start">
-      <h3 class="font-bold">{{ task.title }}</h3>
+      <h3 class="font-bold">{{ shortTitle }}</h3>
       <p class="text-sm text-white">{{ shortDescription }}</p>
       <p class="text-xs text-white mt-5">Tarefa de: {{ task.User?.username }}</p>
     </div>

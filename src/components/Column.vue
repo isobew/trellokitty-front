@@ -4,10 +4,16 @@ import draggable from 'vuedraggable'
 import TaskCard from './TaskCard.vue'
 
 interface Task {
-  id: string
-  title: string
-  description: string
-  status: string
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  userId: string;
+  createdAt: string;
+  User: {
+    id: string;
+    username: string;
+  };
 }
 
 const props = defineProps<{
