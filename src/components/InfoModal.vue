@@ -5,6 +5,7 @@
     description: string;
     status: string;
     userId: string;
+    createdAt: string;
     User: {
       id: string;
       username: string;

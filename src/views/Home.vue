@@ -14,6 +14,7 @@ interface Task {
   description: string;
   status: string;
   userId: string;
+  createdAt: string;
   User: {
     id: string;
     username: string;
@@ -39,11 +40,6 @@ const closeInfoModal = () => {
   showInfoModal.value = false
   selectedTaskInfo.value = null
 }
-
-const logout = () => {
-  localStorage.removeItem('token');
-  router.push('/login');
-};
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -147,9 +143,8 @@ const confirmAndDelete = async () => {
       <h1 class="text-2xl font-bold sm:mb-5">Quadro de tarefas</h1>
       <div class="flex gap-4">
         <button @click="showModal = true" class="text-white px-4 py-2 rounded">+ Tarefa</button>
-        <button @click="logout" class="text-white px-4 py-2 rounded">Logout</button>
-      </div>
     </div>
+  </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6">
       <Column title="Para fazer" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="requestDelete" @editTask="openEditModal" @showInfo="openInfoModal"/>
