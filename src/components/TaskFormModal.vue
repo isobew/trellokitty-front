@@ -33,8 +33,6 @@ const $toast = useToast();
 const apiUrl = import.meta.env.VITE_API_URL;
 const users = ref<{ id: string; username: string }[]>([]);
 
-const uniqueCategories = ['feature', 'bug', 'adjust', 'idea']
-
 const clearForm = () => {
   title.value = ''
   description.value = ''
@@ -122,17 +120,28 @@ const fetchUsers = async () => {
 };
 
 onMounted(fetchUsers);
+
+const categoryOptions = [
+  { value: 'feature', label: 'Funcionalidade' },
+  { value: 'bug', label: 'Bug' },
+  { value: 'adjust', label: 'Ajuste' },
+  { value: 'idea', label: 'Ideia' }
+]
 </script>
 
 <template>
   <div class="fixed inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
-    <div class="bg-[#723046] p-4 rounded w-full max-w-md">
+    <div class="bg-[#723046] rounded w-full max-w-md text-left p-7">
       <h2 class="text-xl font-bold mb-4">
         {{ isEditing ? 'Editar Tarefa' : 'Nova Tarefa' }}
       </h2>
-      <input v-model="title" placeholder="Título" class="w-full border p-2 mb-2 rounded" />
-      <textarea v-model="description" placeholder="Descrição" class="w-full border p-2 mb-2 rounded"></textarea>
+      <label for="title" class="text-sm font-semibold text-white mb-1 block">Título</label>
+      <input id="title" v-model="title" placeholder="Título" class="w-full border p-2 mb-2 rounded" />
+      <label for="desc" class="text-sm font-semibold text-white mb-1 block">Descrição</label>
+      <textarea id="desc" v-model="description" placeholder="Descrição" class="w-full border p-2 mb-2 rounded"></textarea>
+      <label for="user" class="text-sm font-semibold text-white mb-1 block">Usuário</label>
       <select
+        id="user"
         v-model="userId"
         class="w-full border p-2 mb-2 rounded border-white text-white"
       >
@@ -141,17 +150,20 @@ onMounted(fetchUsers);
           {{ user.username }}
         </option>
       </select>
+      <label for="category" class="text-sm font-semibold text-white mb-1 block">Categoria</label>
       <select
+        id="category"
         v-model="category"
         class="w-full border p-2 mb-2 rounded border-white text-white"
       >
         <option disabled value="">Selecione uma categoria</option>
         <option
           class="text-black"
-          v-for="category in uniqueCategories"
-          :key="category"
-          :value="category"
-        >{{ category }}
+          v-for="option in categoryOptions"
+          :key="option.value"
+          :value="option.value"
+        >
+          {{ option.label }}
         </option>
       </select>
       <div class="flex justify-end gap-2">

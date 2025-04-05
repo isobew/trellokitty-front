@@ -30,6 +30,16 @@ const shortTitle = computed(() => {
     ? props.task.title.slice(0, 15) + '...'
     : props.task.title
 })
+
+const translatedCategory = computed(() => {
+  const map: Record<string, string> = {
+    feature: 'Funcionalidade',
+    bug: 'Bug',
+    adjust: 'Ajuste',
+    idea: 'Ideia'
+  }
+  return map[props.task.category] || props.task.category
+})
 </script>
 
 <template>
@@ -42,7 +52,7 @@ const shortTitle = computed(() => {
       <h3 class="font-bold">{{ shortTitle }}</h3>
       <p class="text-sm text-white">{{ shortDescription }}</p>
       <p class="text-xs text-white mt-5">Tarefa de: {{ task.User?.username }}</p>
-      <p class="text-xs text-white mt-1">Categoria: {{ task.category }}</p>
+      <p class="text-xs text-white mt-1">Categoria: {{ translatedCategory }}</p>
     </div>
     <div class="flex flex-col gap-2">
       <button @click.stop="emit('deleteTask')" class="text-white text-sm flex items-center justify-center"
