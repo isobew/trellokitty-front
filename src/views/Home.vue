@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import Column from '../components/Column.vue';
-import CreateTaskModal from '../components/CreateTaskModal.vue';
+import FormTaskModal from '../components/FormTaskModal.vue';
 import { useToast } from 'vue-toast-notification'
 
 interface Task {
@@ -87,24 +87,43 @@ const onTaskMoved = ({ id, status }: { id: string; status: string }) => {
 };
 
 onMounted(fetchTasks);
+
+const selectedTask = ref<Task | undefined>(undefined)
+
+const openEditModal = (task: Task) => {
+  selectedTask.value = task
+  showModal.value = true
+}
+
+const closeModal = () => {
+  selectedTask.value = undefined
+  showModal.value = false
+}
+
 </script>
 
 <template>
   <div class="p-4">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Quadro de tarefas</h1>
+    <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-5">
+      <h1 class="text-2xl font-bold sm:mb-5">Quadro de tarefas</h1>
       <div class="flex gap-4">
         <button @click="showModal = true" class="text-white px-4 py-2 rounded">+ Tarefa</button>
-        <button @click="logout" class="text-white px-4 py-2 rounded">Sair</button>
+        <button @click="logout" class="text-white px-4 py-2 rounded">Logout</button>
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-10">
-      <Column title="Pendente" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
-      <Column title="Em andamento" status="em andamento" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
-      <Column title="Concluída" status="concluída" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" />
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6">
+      <Column title="Para fazer" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal"/>
+      <Column title="Em andamento" status="em andamento" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal" />
+      <Column title="Concluída" status="concluída" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal" />
     </div>
 
-    <CreateTaskModal v-show="showModal" @close="showModal = false" @refresh="fetchTasks" />
+    <FormTaskModal
+      v-show="showModal"
+      :task="selectedTask"
+      @close="closeModal"
+      @refresh="fetchTasks"
+    />
+
   </div>
 </template>

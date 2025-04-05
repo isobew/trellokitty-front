@@ -16,7 +16,7 @@ const props = defineProps<{
   tasks: Task[]
 }>()
 
-const emit = defineEmits(['taskMoved', 'deleteTask'])
+const emit = defineEmits(['taskMoved', 'deleteTask', 'editTask'])
 
 const filteredTasks = computed({
   get() {
@@ -44,7 +44,11 @@ const filteredTasks = computed({
       class="space-y-2 min-h-[100px]"
     >
       <template #item="{ element }">
-        <TaskCard :task="element" @deleteTask="emit('deleteTask', element.id)" />
+        <TaskCard
+          :task="element"
+          @deleteTask="emit('deleteTask', element.id)"
+          @editTask="emit('editTask', element)"
+        />
       </template>
     </draggable>
   </div>
