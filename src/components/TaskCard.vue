@@ -8,6 +8,7 @@ interface Task {
   status: string;
   userId: string;
   createdAt: string;
+  category: string;
   User: {
     id: string;
     username: string;
@@ -41,6 +42,7 @@ const shortTitle = computed(() => {
       <h3 class="font-bold">{{ shortTitle }}</h3>
       <p class="text-sm text-white">{{ shortDescription }}</p>
       <p class="text-xs text-white mt-5">Tarefa de: {{ task.User?.username }}</p>
+      <p class="text-xs text-white mt-1">Categoria: {{ task.category }}</p>
     </div>
     <div class="flex flex-col gap-2">
       <button @click.stop="emit('deleteTask')" class="text-white text-sm flex items-center justify-center"

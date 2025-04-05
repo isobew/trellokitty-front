@@ -11,6 +11,12 @@ const props = defineProps<{
     description: string
     status: string
     userId: string
+    createdAt: string
+    category: string
+    User: {
+      id: string;
+      username: string;
+    }
   }
 }>()
 
@@ -21,15 +27,19 @@ const emit = defineEmits<{
 
 const title = ref('');
 const description = ref('');
+const userId = ref('');
+const category = ref('')
 const $toast = useToast();
 const apiUrl = import.meta.env.VITE_API_URL;
 const users = ref<{ id: string; username: string }[]>([]);
-const userId = ref('');
+
+const uniqueCategories = ['feature', 'bug', 'adjust', 'idea']
 
 const clearForm = () => {
   title.value = ''
   description.value = ''
   userId.value = ''
+  category.value = ''
 }
 
 watch(
@@ -39,13 +49,13 @@ watch(
       title.value = task.title
       description.value = task.description
       userId.value = task.userId || '';
+      category.value = task.category || '';
     } else {
       clearForm()
     }
   },
   { immediate: true }
 )
-
 
 const isEditing = computed(() => !!props.task)
 
@@ -60,7 +70,8 @@ const submit = async () => {
         {
           title: title.value,
           description: description.value,
-          user_id: userId.value
+          user_id: userId.value,
+          category: category.value
         },
         {
           headers: {
@@ -76,7 +87,8 @@ const submit = async () => {
         {
           title: title.value,
           description: description.value,
-          status: 'pendente'
+          status: 'pendente',
+          category: category.value
         },
         {
           headers: {
@@ -127,6 +139,19 @@ onMounted(fetchUsers);
         <option disabled value="">Selecione um usuário</option>
         <option class="text-black" v-for="user in users" :key="user.id" :value="user.id">
           {{ user.username }}
+        </option>
+      </select>
+      <select
+        v-model="category"
+        class="w-full border p-2 mb-2 rounded border-white text-white"
+      >
+        <option disabled value="">Selecione uma categoria</option>
+        <option
+          class="text-black"
+          v-for="category in uniqueCategories"
+          :key="category"
+          :value="category"
+        >{{ category }}
         </option>
       </select>
       <div class="flex justify-end gap-2">

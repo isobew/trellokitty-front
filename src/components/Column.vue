@@ -10,6 +10,7 @@ interface Task {
   status: string;
   userId: string;
   createdAt: string;
+  category: string;
   User: {
     id: string;
     username: string;

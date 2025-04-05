@@ -59,6 +59,7 @@
     description: string;
     status: string;
     createdAt: string;
+    category: string;
     userId: string;
     User: {
       id: string;
