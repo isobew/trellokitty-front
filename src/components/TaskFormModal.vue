@@ -114,7 +114,7 @@ onMounted(fetchUsers);
 
 <template>
   <div class="fixed inset-0 bg-[rgba(0,0,0,0.6)] flex items-center justify-center">
-    <div class="bg-gray-500 p-4 rounded w-full max-w-md">
+    <div class="bg-[#723046] p-4 rounded w-full max-w-md">
       <h2 class="text-xl font-bold mb-4">
         {{ isEditing ? 'Editar Tarefa' : 'Nova Tarefa' }}
       </h2>

@@ -16,7 +16,7 @@ const props = defineProps<{
   tasks: Task[]
 }>()
 
-const emit = defineEmits(['taskMoved', 'deleteTask', 'editTask'])
+const emit = defineEmits(['taskMoved', 'deleteTask', 'editTask', 'showInfo'])
 
 const filteredTasks = computed({
   get() {
@@ -34,9 +34,9 @@ const filteredTasks = computed({
 </script>
 
 <template>
-  <div class="column-container p-4 rounded h-100 w-70 bg-gray-100">
+  <div class="column-container p-4 rounded h-100 w-70 overflow-y-auto">
     <h2 class="font-semibold mb-2">{{ title }}</h2>
-
+    
     <draggable
       v-model="filteredTasks"
       group="tasks"
@@ -48,6 +48,7 @@ const filteredTasks = computed({
           :task="element"
           @deleteTask="emit('deleteTask', element.id)"
           @editTask="emit('editTask', element)"
+          @showInfo="emit('showInfo', element)"
         />
       </template>
     </draggable>
