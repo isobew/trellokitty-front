@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import axios from 'axios';
 import { useToast } from 'vue-toast-notification';
+import { onMounted } from 'vue';
 
 const props = defineProps<{
   task?: {
@@ -9,6 +10,7 @@ const props = defineProps<{
     title: string
     description: string
     status: string
+    userId: string
   }
 }>()
 
@@ -21,10 +23,13 @@ const title = ref('');
 const description = ref('');
 const $toast = useToast();
 const apiUrl = import.meta.env.VITE_API_URL;
+const users = ref<{ id: string; username: string }[]>([]);
+const userId = ref('');
 
 const clearForm = () => {
   title.value = ''
   description.value = ''
+  userId.value = ''
 }
 
 watch(
@@ -33,6 +38,7 @@ watch(
     if (task) {
       title.value = task.title
       description.value = task.description
+      userId.value = task.userId || '';
     } else {
       clearForm()
     }
@@ -53,7 +59,8 @@ const submit = async () => {
         `${apiUrl}/update-task/${props.task.id}`,
         {
           title: title.value,
-          description: description.value
+          description: description.value,
+          user_id: userId.value
         },
         {
           headers: {
@@ -87,6 +94,22 @@ const submit = async () => {
     $toast.error(msg)
   }
 }
+
+const fetchUsers = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const res = await axios.get(`${apiUrl}/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    users.value = res.data;
+  } catch (error: any) {
+    $toast.error('Erro ao buscar usuários');
+  }
+};
+
+onMounted(fetchUsers);
 </script>
 
 <template>
@@ -97,6 +120,15 @@ const submit = async () => {
       </h2>
       <input v-model="title" placeholder="Título" class="w-full border p-2 mb-2 rounded" />
       <textarea v-model="description" placeholder="Descrição" class="w-full border p-2 mb-2 rounded"></textarea>
+      <select
+        v-model="userId"
+        class="w-full border p-2 mb-2 rounded border-white text-white"
+      >
+        <option disabled value="">Selecione um usuário</option>
+        <option class="text-black" v-for="user in users" :key="user.id" :value="user.id">
+          {{ user.username }}
+        </option>
+      </select>
       <div class="flex justify-end gap-2">
         <button @click="emit('close')" class="px-4 py-2 bg-gray-300 rounded">Cancelar</button>        
         <button @click="submit" class="px-4 py-2 text-white rounded">

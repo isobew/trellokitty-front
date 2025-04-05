@@ -32,7 +32,7 @@ const shortDescription = computed(() => {
     <div class="flex flex-col items-start">
       <h3 class="font-bold">{{ task.title }}</h3>
       <p class="text-sm text-black">{{ shortDescription }}</p>
-      <p class="text-xs text-gray-300 mt-5">Criado por: {{ task.User?.username }}</p>
+      <p class="text-xs text-gray-300 mt-5">Tarefa de: {{ task.User?.username }}</p>
     </div>
     <div class="flex flex-col gap-2">
       <button @click.stop="emit('deleteTask')" class="text-white text-sm flex items-center justify-center"

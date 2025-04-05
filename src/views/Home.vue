@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router';
 import Column from '../components/Column.vue';
 import FormTaskModal from '../components/FormTaskModal.vue';
 import { useToast } from 'vue-toast-notification'
+import ConfirmDeleteModal from '../components/ConfirmModal.vue'
 
 interface Task {
   id: string;
@@ -17,6 +18,8 @@ const router = useRouter();
 const tasks = ref<Task[]>([]);
 const showModal = ref(false);
 const $toast = useToast();
+const showConfirmDelete = ref(false);
+const taskToDelete = ref<string | null>(null);
 
 const logout = () => {
   localStorage.removeItem('token');
@@ -100,6 +103,23 @@ const closeModal = () => {
   showModal.value = false
 }
 
+const requestDelete = (id: string) => {
+  taskToDelete.value = id
+  showConfirmDelete.value = true
+}
+
+const cancelDelete = () => {
+  taskToDelete.value = null
+  showConfirmDelete.value = false
+}
+
+const confirmAndDelete = async () => {
+  if (taskToDelete.value) {
+    await deleteTask(taskToDelete.value)
+    taskToDelete.value = null
+    showConfirmDelete.value = false
+  }
+}
 </script>
 
 <template>
@@ -113,9 +133,9 @@ const closeModal = () => {
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6">
-      <Column title="Para fazer" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal"/>
-      <Column title="Em andamento" status="em andamento" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal" />
-      <Column title="Concluída" status="concluída" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="deleteTask" @editTask="openEditModal" />
+      <Column title="Para fazer" status="pendente" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="requestDelete" @editTask="openEditModal"/>
+      <Column title="Em andamento" status="em andamento" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="requestDelete" @editTask="openEditModal" />
+      <Column title="Concluída" status="concluída" :tasks="tasks" @taskMoved="onTaskMoved" @deleteTask="requestDelete" @editTask="openEditModal" />
     </div>
 
     <FormTaskModal
@@ -125,5 +145,10 @@ const closeModal = () => {
       @refresh="fetchTasks"
     />
 
+    <ConfirmDeleteModal
+      v-if="showConfirmDelete"
+      @cancel="cancelDelete"
+      @confirm="confirmAndDelete"
+    />
   </div>
 </template>
