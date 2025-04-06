@@ -85,3 +85,11 @@ No painel de métricas, você pode visualizar:
 
 ### Tela de Relatórios
 ![Image](https://github.com/user-attachments/assets/284ce831-3cab-4539-90de-b7033ad06659)
+
+---
+
+## Possíveis Implementações futuras para o projeto::
+
+- Testes jest no front-end;
+- Tela de perfil;
+- Criação de quadros de tarefas diferentes.
